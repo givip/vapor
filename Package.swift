@@ -26,7 +26,7 @@ let package = Package(
         .package(url: "https://github.com/vapor/database-kit.git", from: "1.0.0-rc.2"),
 
         // 🚀 Non-blocking, event-driven networking for Swift (HTTP and WebSockets).
-        .package(url: "https://github.com/vapor/engine.git", from: "3.0.0-rc.2"),
+        .package(url: "https://github.com/givip/engine.git", from: "3.0.0-rc.2"),
 
         // 🚍 High-performance trie-node router.
         .package(url: "https://github.com/vapor/routing.git", from: "3.0.0-rc.2"),
