@@ -9,34 +9,21 @@ public protocol Client: Responder {
 // MARK: Convenience
 
 extension Client {
-    /// Sends an HTTP request from the client using the method and url.
-    public func send(
-        _ method: HTTPMethod,
-        headers: HTTPHeaders = .init(),
-        to url: URLRepresentable
-    ) -> Future<Response> {
-        return Future.flatMap(on: container) {
-            let req = Request(using: self.container)
-            req.http.method = method
-            req.http.url = url.convertToURL()!
-            req.http.headers = headers
-            return try self.respond(to: req)
-        }
-    }
-
     /// Sends an HTTP request from the client using the method, url, and content.
     public func send<C>(
         _ method: HTTPMethod,
         headers: HTTPHeaders = .init(),
         to url: URLRepresentable,
-        content: C
+        content: C? = nil
     ) -> Future<Response> where C: Content {
         return Future.flatMap(on: container) {
             let req = Request(using: self.container)
             req.http.method = method
             req.http.url = url.convertToURL()!
             req.http.headers = headers
-            try req.content.encode(content)
+            if let content = content {
+                try req.content.encode(content)
+            }
             return try self.respond(to: req)
         }
     }
